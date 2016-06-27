@@ -357,7 +357,7 @@ We could use a tool like <a href="https://github.com/jnicklas/capybara" target="
 
 It's extremely important to maintain tests (especially on the master branch) and deal with test failures as soon as possible.  If tests are left to languish until there are many failures, your tests lose their value and become untrustworthy.  The investment your team made in testing is wasted.
 
-Intermittent test failures are the bane of many a developers life.  It's important to track these down too...they're usually caused by a poorly written test.
+Intermittent test failures are the bane of many a developer's life.  It's important to track these down too...they're usually caused by a poorly written test.
 
 ## Other Tools
 
@@ -365,7 +365,7 @@ Intermittent test failures are the bane of many a developers life.  It's importa
 * [shoulda matchers](http://matchers.shoulda.io/docs/v3.1.0/) - Make Rails model tests super easy.
 * [DatabaseCleaner](https://github.com/DatabaseCleaner/database_cleaner) - used to wipe the database before each test, not necessary on smaller apps as tests are rolled-back.
 
-## Challenges
+## Tasks for Practice
 
 
 Fork and clone the <a href="https://github.com/SF-WDI-LABS/rspec_testing_inventory" target="_blank">rspec testing app</a>. Follow the instructions there.
