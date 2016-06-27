@@ -1,12 +1,39 @@
-# <img src="https://cloud.githubusercontent.com/assets/7833470/10899314/63829980-8188-11e5-8cdd-4ded5bcb6e36.png" height="60"> Testing Rails with RSpec
+<!--
+Creator: Travis Gaff
+Market: SF
+-->
+
+![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
+
+# Testing Rails with RSpec
+
+### Why is this important?
+<!-- framing the "why" in big-picture/real world examples -->
+*This workshop is important because:*
+
+- Testing is integral to long-lived applications, especially for critical features.  
+- Investing time to develop tests early saves debugging time (and therefore money!) later.   
+- Testing is good business practice; it's a sign of a mature developer; and it <a href="https://en.wikipedia.org/wiki/List_of_software_bugs">can save lives</a>!
+
+### What are the objectives?
+<!-- specific/measurable goal for students to achieve -->
+*After this workshop, developers will be able to:*
+
+- Explain the difference between unit and integration tests.    
+- Identify various parts of Rails apps that we might want to test.   
+- Test model methods using rspec-rails and shoulda-matchers.    
+- Test controller actions using rspec-rails.   
+
+### Where should we be now?
+<!-- call out the skills that are prerequisites -->
+*Before this workshop, developers should already be able to:*
+
+- Add gems to a Rails app.
+- Read, write, and explain simple model and controller code in Rails. 
+- List costs and benefits of testing. 
 
 
-| Objectives |
-| :---- |
-| Understand the difference between unit and integration tests. |
-| Identify various aspects of Rails apps that we might want to test.|
-| Test model methods using rspec-rails. |
-| Test controller actions using rspec-rails. |
+
 
 ## Resources
 
