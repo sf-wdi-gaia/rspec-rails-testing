@@ -442,5 +442,5 @@ Fork and clone the <a href="https://github.com/SF-WDI-LABS/rspec_testing_invento
 ## Closing Thoughts
 
 - Testing is incredibly important in the industry; it saves time and money!
-- Developers should be comfortable writing Rails unit tests using industry standard tools like `rspec-rails`, `factory-girl`, and `shoulda-matchers`.
+- Developers should be comfortable writing Rails unit tests using industry standard tools like `rspec-rails`, `factory_girl`, and `shoulda-matchers`.
 - We've looked at unit testing models and controllers; what other tests might we want in a Rails app?
