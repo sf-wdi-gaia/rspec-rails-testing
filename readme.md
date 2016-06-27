@@ -392,7 +392,12 @@ Intermittent test failures are the bane of many a developer's life.  It's import
 * [shoulda matchers](http://matchers.shoulda.io/docs/v3.1.0/) - Make Rails model tests super easy.
 * [DatabaseCleaner](https://github.com/DatabaseCleaner/database_cleaner) - used to wipe the database before each test, not necessary on smaller apps as tests are rolled-back.
 
-## Tasks for Practice
 
+## Independent Practice 
 
 Fork and clone the <a href="https://github.com/SF-WDI-LABS/rspec_testing_inventory" target="_blank">rspec testing app</a>. Follow the instructions there.
+
+## Closing Thoughts
+
+- Testing is incredibly important in the industry; it saves time and money!
+- Developers should be comfortable writing Rails tests based on existing examples, using industry standard gems including `rspec-rails`, `factory-girl`, and `shoulda-matchers`.
