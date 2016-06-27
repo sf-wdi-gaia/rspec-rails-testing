@@ -5,13 +5,13 @@ Market: SF
 
 ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
 
-# Testing Rails with RSpec
+# Rails Unit Tests with RSpec
 
 ### Why is this important?
 <!-- framing the "why" in big-picture/real world examples -->
 *This workshop is important because:*
 
-- Testing is integral to long-lived applications, especially for critical features.  
+- Testing is integral to long-lived software, especially for critical features. Most companies and open source projects require detailed tests.  
 - Investing time to develop tests early saves debugging time (and therefore money!) later.   
 - Testing is good business practice; it's a sign of a mature developer; and it <a href="https://en.wikipedia.org/wiki/List_of_software_bugs">can save lives</a>!
 
@@ -19,10 +19,11 @@ Market: SF
 <!-- specific/measurable goal for students to achieve -->
 *After this workshop, developers will be able to:*
 
-- Explain the difference between unit and integration tests.    
+
 - Identify various parts of Rails apps that we might want to test.   
-- Test model methods using rspec-rails and shoulda-matchers.    
-- Test controller actions using rspec-rails.   
+- Explain the difference between unit and integration tests.    
+- Write unit tests for model methods using rspec-rails and shoulda-matchers.    
+- Write unit tests for controller actions using rspec-rails.   
 
 ### Where should we be now?
 <!-- call out the skills that are prerequisites -->
@@ -55,12 +56,12 @@ Unit tests tend to run faster because we're testing small components.  By having
 
 In **Integration Tests** we combine components together, sometimes just a few and other times the entire system.  In Rails, integration tests often drive a browser and test the entirety of the system--the full request response cycle.  These tests tend to take much longer to run.  They test the collusion of components and that the interface between them is behaving as we expect.
 
-**Both types of tests are important.**  There are also other types but they can generally be broken down into finer grained versions of the above.  Together the Unit and Integration tests you write become part of your test suite.
+**Both types of tests are important.**  There are also other types but they can generally be broken down into finer grained versions of the above.  Together, the Unit and Integration tests you write become part of your test suite.
 
 
 ## How are tests used in industry?
 
-Many companies require that all the code they develop comes with tests.  Often before merging code into master, the entire test suite is run and all tests must pass.  
+Many companies and open source projects require that all the code they develop comes with tests.  Often before merging code into master, the entire test suite is run and all tests must pass.  
 
 ## rspec-rails
 
@@ -154,7 +155,7 @@ To run only a specific set of tests, type `rspec` and the file path for the test
 
 A test should consist of:
 
-1. **Setup**: Using `let` or `before` or `subject` to preconfigure data that is needed to test or set the test subject.  You can keep your code dry by re-using these across multiple tests.
+1. **Setup**: Using `let` or `before` or `subject` to preconfigure data that is needed to test, or set the test subject.  You can keep your code dry by re-using these across multiple tests.
 
     * Including **Definition**: A name for the test.  This should use an active verb.  Ex. "is invalid without an email".  This should also be descriptive enough that it can be used as **documentation** by other developers.  _This isn't strictly one of the 4 parts of a test, but it IS really important_, future developers will like you if your test name tells them what the code should do.
 
@@ -167,12 +168,16 @@ A test should consist of:
 #### Setup
 
 ```ruby
-  subject(:cat) { Animal.new(type: 'cat', name: 'fluffy') }
+  # in a set of tests for an Animal class
+  
+  subject(:cat) { Animal.new(type: 'cat', name: 'Fluffy') }
   let(:food) { Food.new }
 
   before do
     food.flavor = 'chicken gizzards'
   end
+  
+  # ...
 ```
 
 * Use `subject` to define the item being tested.
@@ -188,6 +193,8 @@ A test should consist of:
   describe '#eat' do
     it "isn't hungry after eating" do
       cat.eat(food)
+      
+      #...
 ```
 
 * Use active verbs for test names.
@@ -212,9 +219,40 @@ Usually RSpec and other gems we might be using take care of most of this for us.
 
 ```ruby
 after do
+  # Rails handles tear down; let's just reward cat for participating.
   cat.pet
 end
 ```
+
+
+<details>
+
+  <summary>Click to see the code snippets from the four test phases above put together for a full test!</summary>
+  
+  ```ruby
+  # in a set of tests for an Animal class
+  
+  subject(:cat) { Animal.new(type: 'cat', name: 'Fluffy') }
+  let(:food) { Food.new }
+
+  before do
+    food.flavor = 'chicken gizzards'
+  end
+  
+  describe '#eat' do
+    it "isn't hungry after eating" do
+      cat.eat(food)
+      expect(cat.hungry?).to be false
+    end
+  end
+
+  after do
+    # Rails handles tear down; let's just reward cat for participating.
+    cat.pet
+  end
+  ```
+  
+</details>
 
 ### What do we test?
 
@@ -222,8 +260,9 @@ end
 * behavior
 * by component
 
-We try to test each component or piece independently.  Code written following good object-oriented practices and with concerns well separated is far easier to test.  So, if we write our tests before our code our tests can help to push us to write good object-oriented code and to separate concerns.  
-Break tests into test files for each class.  And then groups of tests for each method in the class.  And then possibly into `context`s for specific conditions under which the method may be used.  (E.g. with valid or invalid data, with strings or integers, when x=true or x=false).  
+We try to test each component or piece independently.  Code written following good object-oriented practices and with concerns well separated is far easier to test.  So, if we write our tests before our code, our tests can help to push us to write good object-oriented code and to separate concerns.  
+
+Break tests into test files for each class.  Then, make groups of tests for each method in the class.  If there are still quite a few tests in each group, break them down further into `context`s for specific conditions under which the method may be used.  (E.g. with valid or invalid data, with strings or integers, when x=true or x=false).  
 
 Isolate tests from each other.  One test should **never depend on another test** to change or prepare something.  Each test should be able to run on its own without the others.  
 
@@ -233,7 +272,7 @@ Test behavior.
 
 ##### FactoryGirl
 
-We can set up a `User` instance for testing purposes with `User.create` or we can use a tool called FactoryGirl to do this for us.
+We can set up a `User` instance for testing purposes with `User.create`, or we can use a tool called FactoryGirl to do this for us. Here's how we'd use FactoryGirl:
 
   ```ruby
   #
@@ -245,7 +284,9 @@ We can set up a `User` instance for testing purposes with `User.create` or we ca
     subject(:user) { FactoryGirl.create(:user) }
 
   end
+  ```
 
+  ```ruby
   #
   # spec/factories/user.rb
   #
@@ -260,7 +301,7 @@ We can set up a `User` instance for testing purposes with `User.create` or we ca
   end
   ```
 
-> It's also possible to use FFaker to generate some data either for `User.create` or for FactoryGirl.  But FFaker can run into intermittent issues because it can produce duplicate data or results you may not expect.  Therefore many developers prefer to use FactoryGirl's `sequence`.  
+> It's also possible to use FFaker to generate some data, either for `User.create` or for FactoryGirl.  But FFaker can run into intermittent issues because it can produce duplicate data or results you may not expect.  Therefore, many developers prefer to use FactoryGirl's `sequence`.  
 
 Assuming we've already set `user` with first and last names, we can then test that the `full_name` method correctly calculates the full name:
 
@@ -271,7 +312,8 @@ Assuming we've already set `user` with first and last names, we can then test th
   require 'rails_helper'
   RSpec.describe User, type: :model do
 
-    ...
+    subject(:user) { FactoryGirl.create(:user) } # with FactoryGirl
+    # or subject(:user) { User.new(first_name: 'Bob' last_name:'Loblaw') } # without FactoryGirl
 
     describe "#full_name" do
       it "joins first name and last name" do
@@ -382,9 +424,9 @@ We could use a tool like <a href="https://github.com/jnicklas/capybara" target="
 
 ## Maintaining tests
 
-It's extremely important to maintain tests (especially on the master branch) and deal with test failures as soon as possible.  If tests are left to languish until there are many failures, your tests lose their value and become untrustworthy.  The investment your team made in testing is wasted.
+It's extremely important to maintain tests (especially on the master branch) and to deal with test failures as soon as possible.  If tests are left to languish until there are many failures, your tests lose their value and become untrustworthy.  The investment your team made in testing is wasted.
 
-Intermittent test failures are the bane of many a developer's life.  It's important to track these down too...they're usually caused by a poorly written test.
+Intermittent test failures are the bane of many a developer's life.  It's important to track these down too...they're usually caused by a poorly written test, but randomized data, inconsistent versions, and even time zones have been known to cause headaches as well. ([Here's an old but informative writeup from testing expert James Bach.](http://www.satisfice.com/blog/archives/34))
 
 ## Other Tools
 
@@ -400,4 +442,5 @@ Fork and clone the <a href="https://github.com/SF-WDI-LABS/rspec_testing_invento
 ## Closing Thoughts
 
 - Testing is incredibly important in the industry; it saves time and money!
-- Developers should be comfortable writing Rails tests based on existing examples, using industry standard gems including `rspec-rails`, `factory-girl`, and `shoulda-matchers`.
+- Developers should be comfortable writing Rails unit tests using industry standard tools like `rspec-rails`, `factory-girl`, and `shoulda-matchers`.
+- We've looked at unit testing models and controllers; what other tests might we want in a Rails app?
