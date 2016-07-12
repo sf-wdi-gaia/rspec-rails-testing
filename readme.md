@@ -369,3 +369,8 @@ Intermittent test failures are the bane of many a developers life.  It's importa
 
 
 Fork and clone the <a href="https://github.com/SF-WDI-LABS/rspec_testing_inventory" target="_blank">rspec testing app</a>. Follow the instructions there.
+
+
+## Licensing
+All content is licensed under a CC­BY­NC­SA 4.0 license.
+All software code is licensed under GNU GPLv3. For commercial use or alternative licensing, please contact legal@ga.co.
